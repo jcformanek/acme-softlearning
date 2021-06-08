@@ -1,2 +1,3 @@
-# Acme Soft Actor-Critic
-Soft Actor-Critic implementation using DeepMind's RL framework Acme.
+# RL algorithms implemented with Acme
+- Soft Actor-Critic (SAC)
+- Proximal Policy Optimization (POP)
