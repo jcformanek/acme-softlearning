@@ -4,7 +4,7 @@
 # https://github.com/DLR-RM/stable-baselines3/blob/master/stable_baselines3/sac/
 # as well as Acme https://github.com/deepmind/acme
 
-"""Tests for the SAC agent."""
+"""Run SAC on LunarLanderContinuous."""
 
 from typing import Dict, Sequence
 
