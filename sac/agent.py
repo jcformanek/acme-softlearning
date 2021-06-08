@@ -14,12 +14,10 @@ from acme.agents import agent
 from acme.utils import loggers, counting
 from acme.tf import utils as tf2_utils
 from acme.agents.tf import actors
-from acme.tf import networks
 import reverb
 import sonnet as snt
-import tensorflow as tf
 
-import learning
+from sac import learning
 
 class SAC(agent.Agent):
     """SAC Agent.

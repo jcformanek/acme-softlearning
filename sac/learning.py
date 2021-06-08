@@ -17,7 +17,6 @@ from acme.utils import loggers
 import numpy as np
 import sonnet as snt
 import tensorflow as tf
-import tensorflow_probability as tfp
 
 class SACLearner(acme.Learner):
     """DDPG learner.

@@ -8,18 +8,14 @@
 
 from typing import Dict, Sequence
 
-from absl.testing import absltest
 import acme
 from acme import specs, wrappers, types
-from acme.testing import fakes
 from acme.tf import networks
 import numpy as np
 import sonnet as snt
-import tensorflow as tf
 import gym
-from tensorflow import keras
 
-import agent
+from sac import agent
 import utils
 
 
