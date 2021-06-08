@@ -25,8 +25,8 @@ import utils
 
 def make_networks(
     action_spec: types.NestedSpec,
-    policy_layer_sizes: Sequence[int] = (256, 256),
-    critic_layer_sizes: Sequence[int] = (256, 256),
+    policy_layer_sizes: Sequence[int] = (512, 256),
+    critic_layer_sizes: Sequence[int] = (512, 256),
 ) -> Dict[str, snt.Module]:
     """Creates networks used by the agent."""
 
@@ -36,6 +36,7 @@ def make_networks(
 
     policy_network = snt.Sequential(
         [
+            networks.AtariTorso(),
             networks.LayerNormMLP(policy_layer_sizes), 
             networks.MultivariateNormalDiagHead(num_dimensions),
             networks.TanhToSpec(action_spec)
@@ -44,9 +45,11 @@ def make_networks(
 
     # The multiplexer concatenates the (maybe transformed) observations/actions.
     critic_network_1 = networks.CriticMultiplexer(
+        observation_network=networks.AtariTorso(),
         critic_network=networks.LayerNormMLP(critic_layer_sizes)
     )
     critic_network_2 = networks.CriticMultiplexer(
+        observation_network=networks.AtariTorso(),
         critic_network=networks.LayerNormMLP(critic_layer_sizes)
     )
 
@@ -82,7 +85,8 @@ def train_sac(env_name):
         logger=agent_logger,
         samples_per_insert=32,
         alpha=0.2,
-        min_replay_size=500
+        min_replay_size=1000,
+        batch_size=256
     )
 
     # Run the environment loop
@@ -90,4 +94,4 @@ def train_sac(env_name):
     loop.run(num_episodes=1000)
 
 if __name__ == '__main__':
-  train_sac("LunarLanderContinuous-v2")
+  train_sac("CarRacing-v0")
