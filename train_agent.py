@@ -36,7 +36,6 @@ def make_networks(
 
     policy_network = snt.Sequential(
         [
-            networks.AtariTorso(),
             networks.LayerNormMLP(policy_layer_sizes), 
             networks.MultivariateNormalDiagHead(num_dimensions),
             networks.TanhToSpec(action_spec)
@@ -45,11 +44,9 @@ def make_networks(
 
     # The multiplexer concatenates the (maybe transformed) observations/actions.
     critic_network_1 = networks.CriticMultiplexer(
-        observation_network=networks.AtariTorso(),
         critic_network=networks.LayerNormMLP(critic_layer_sizes)
     )
     critic_network_2 = networks.CriticMultiplexer(
-        observation_network=networks.AtariTorso(),
         critic_network=networks.LayerNormMLP(critic_layer_sizes)
     )
 
@@ -94,4 +91,4 @@ def train_sac(env_name):
     loop.run(num_episodes=1000)
 
 if __name__ == '__main__':
-  train_sac("CarRacing-v0")
+  train_sac("LunarLanderContinuous-v2")
